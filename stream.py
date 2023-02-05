@@ -21,9 +21,7 @@ def Weap_detection():
     st.subheader("This Weapon Detection Project takes the input as image/video and outputs image/video with weapon bounded in a rectangle with confidence score.")
     
     uploaded_file = st.file_uploader("Choose a file")
-    print("#"*20)
     print(uploaded_file)
-    print("#"*20)
     
     if uploaded_file!=None:
         file_details = {"File Name":uploaded_file.name,
@@ -47,15 +45,11 @@ def Weap_detection():
         save_path = Path(uploads_dir, uploaded_file.name)
 
         with open(save_path, mode = 'wb') as w:
-            print("**************  file Opened")
             w.write(uploaded_file.getbuffer())
-            print("**************  file written")
             if st.success("Output"):
-                print("**************  output found")
                 
                 os.chdir(yolov5_dir)
                 os.system('python detect.py --weights runs/train/exp/weights/best.pt --img 640 --conf 0.25 --source ../../instance/uploads')
-                print("**************  ran weapon")
 
                 runs_detect_dir = os.path.join(yolov5_dir, 'runs', 'detect')
                 exp_dir = (max([os.path.join(runs_detect_dir,d) for d in os.listdir(runs_detect_dir)], key=os.path.getmtime))
@@ -99,8 +93,6 @@ def Speech_reco():
             st.write("Please record sound first")
             
     if st.button('DETECT'):
-        # app_dir = os.path.abspath(os.path.dirname(__file__))
-        # uploads_dir = os.path.join(app_dir,'recordings')
         hate_words = audio_input(os.path.join(uploads_dir,"record.wav"))
         if hate_words != []:
             st.subheader("Hate Speech Detected")
@@ -173,10 +165,6 @@ def Vio_detection():
     st.subheader("This Violence Detection Project takes the input as image/video and outputs image/video with any sort of violence bounded in a rectangle with confidence score.")
     load_file = st.file_uploader("Choose a file")
     
-    print("#"*20)
-    print(load_file)
-    print("#"*20)
-    
     if load_file!=None:
         file_details = {"File Name":load_file.name,
                         "File Type":load_file.type,
@@ -198,17 +186,14 @@ def Vio_detection():
         save_path = Path(load_dir, load_file.name)
 
         with open(save_path, mode = 'wb') as w:
-            print("**************  file Opened")
             w.write(load_file.getbuffer())
-            print("**************  file written")
             if st.success("Output"):
-                print("**************  output found")
                 print(violence_path)
                 print(os.path.isfile(violence_path))
 
                 os.chdir(yolov5_dir)
                 os.system('python detect.py --weights runs/train/exp/weights/best.pt --img 640 --conf 0.25 --source ../../instancetwo/uploadstwo')
-                print("**************  ran weapon")
+                
 
                 runs_detect_dir = os.path.join(yolov5_dir, 'runs', 'detect')
                 exp_dir = (max([os.path.join(runs_detect_dir,d) for d in os.listdir(runs_detect_dir)], key=os.path.getmtime))
